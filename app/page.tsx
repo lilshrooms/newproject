@@ -1,101 +1,162 @@
-import Image from "next/image";
+'use client'  // Add this line at the top of the file
 
-export default function Home() {
+import Link from "next/link"
+import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Home, DollarSign, TrendingUp, Shield, Moon } from "lucide-react"
+import Chatbot from "@/components/Chatbox"
+
+export default function LandingPage() {
+  const [darkMode, setDarkMode] = useState(false)
+
+  useEffect(() => {
+    // Check if dark mode was previously set
+    const isDarkMode = localStorage.getItem('darkMode') === 'true'
+    setDarkMode(isDarkMode)
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark')
+    }
+  }, [])
+
+  const toggleDarkMode = () => {
+    const newDarkMode = !darkMode
+    setDarkMode(newDarkMode)
+    localStorage.setItem('darkMode', newDarkMode.toString())
+    if (newDarkMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+    <div className={`flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-white ${darkMode ? 'dark:from-gray-900 dark:to-gray-800' : ''}`}>
+      <header className="fixed top-0 left-0 right-0 px-4 lg:px-6 h-16 flex items-center shadow-md bg-white dark:bg-gray-800 z-50">
+        <Link className="flex items-center justify-center" href="#">
+          <Home className="h-6 w-6 mr-2 text-blue-600 dark:text-blue-400" />
+          <span className="font-bold text-xl text-blue-600 dark:text-blue-400">Home<span className="text-gray-800 dark:text-white">Base</span></span>
+        </Link>
+        <nav className="ml-auto flex gap-4 sm:gap-6">
+          <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#">
+            Features
+          </Link>
+          <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#">
+            Pricing
+          </Link>
+          <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#">
+            About
+          </Link>
+          <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#">
+            Contact
+          </Link>
+          <button onClick={toggleDarkMode} className="text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            <Moon className="h-6 w-6" />
+          </button>
+        </nav>
+      </header>
+      <main className="flex-1 pt-16"> {/* Add padding to avoid content being hidden behind the fixed header */}
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 px-4 md:px-6">
+          <div className="container mx-auto">
+            <div className="flex flex-col items-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+                  Revolutionizing Property Tax Valuations
+                </h1>
+                <p className="mx-auto max-w-[700px] text-gray-700 md:text-xl dark:text-gray-300 animate-fade-in-up">
+                  Get fair and precise property tax assessments with HomeBase&apos;s advanced valuation tool. Save time and money with confidence.
+                </p>
+              </div>
+              <div className="space-x-4">
+                <Link href="/get-started">
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105">
+                    Get Started
+                  </Button>
+                </Link>
+                <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-100 font-bold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105">
+                  Learn More
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-blue-600 dark:bg-blue-800">
+          <div className="container mx-auto px-4 md:px-6">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-12 text-white">
+              Why Choose HomeBase?
+            </h2>
+            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="flex flex-col items-center text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105">
+                <DollarSign className="h-12 w-12 mb-4 text-blue-600 dark:text-blue-400" />
+                <h3 className="text-lg font-bold text-gray-800 dark:text-white">Accurate Valuations</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                  Our advanced algorithms ensure precise property tax assessments.
+                </p>
+              </div>
+              <div className="flex flex-col items-center text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105">
+                <TrendingUp className="h-12 w-12 mb-4 text-blue-600 dark:text-blue-400" />
+                <h3 className="text-lg font-bold text-gray-800 dark:text-white">Market Insights</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                  Stay informed with real-time market trends and property data.
+                </p>
+              </div>
+              <div className="flex flex-col items-center text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105">
+                <Shield className="h-12 w-12 mb-4 text-blue-600 dark:text-blue-400" />
+                <h3 className="text-lg font-bold text-gray-800 dark:text-white">Secure & Compliant</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                  Your data is protected with bank-level security measures.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50 dark:bg-gray-900">
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="flex flex-col items-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-gray-800 dark:text-white">
+                  Ready to Optimize Your Property Taxes Today?
+                </h2>
+                <p className="mx-auto max-w-[600px] text-gray-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-300">
+                  Join thousands of property owners who trust HomeBase for fair and accurate valuations.
+                </p>
+              </div>
+              <div className="w-full max-w-sm space-y-2">
+                <form className="flex space-x-2">
+                  <Input className="max-w-lg flex-1 bg-white dark:bg-gray-800 border-blue-300 dark:border-blue-700 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your email" type="email" />
+                  <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105">
+                    Sign Up
+                  </Button>
+                </form>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Start your free trial today. No credit card required.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      <footer className="w-full py-6 bg-gray-100 dark:bg-gray-800">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              © 2024 HomeBase Inc. All rights reserved.
+            </p>
+            <nav className="flex gap-4 mt-4 md:mt-0">
+              <Link className="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors" href="#">
+                Terms of Service
+              </Link>
+              <Link className="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors" href="#">
+                Privacy Policy
+              </Link>
+              <Link className="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors" href="#">
+                Contact Us
+              </Link>
+            </nav>
+          </div>
+        </div>
       </footer>
+      <Chatbot />
     </div>
-  );
+  )
 }
