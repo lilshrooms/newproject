@@ -72,64 +72,105 @@ export default function PricingPage() {
                 onClick={() => setActiveTab('commercial')}
                 className={`${activeTab === 'commercial' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'}`}
               >
-                <Building className="mr-2 h-4 w-4" /> Commercial Properties
+                <Building className="mr-2 h-4 w-4" />  Landlords
               </Button>
             </div>
             
             {activeTab === 'homeowners' && (
               <div className="grid gap-10 md:grid-cols-2">
                 {/* Residential SaaS Plan */}
-                <div className="flex flex-col items-center text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-                  <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Residential SaaS</h2>
+                <div className="flex flex-col items-center text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg h-full">
+                  <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Residential Data Only</h2>
                   <p className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-4">$100</p>
-                  <ul className="text-left text-gray-600 dark:text-gray-300 mb-6">
-                    <li className="mb-2 flex items-start">
-                      <span>✓ Access to our valuation tool</span>
+                  <ul className="text-left text-gray-600 dark:text-gray-300 mb-6 flex-grow space-y-4">
+                    <li className="flex items-start">
+                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 mt-1">
+                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="flex-grow">Access to our valuation tool</span>
                       <Tooltip content="Use our advanced AI to get accurate property valuations">
-                        <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer flex-shrink-0 mt-1" />
+                        <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer flex-shrink-0" />
                       </Tooltip>
                     </li>
-                    <li className="mb-2 flex items-center">
-                      <span>✓ Market insights</span>
+                    <li className="flex items-start">
+                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 mt-1">
+                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="flex-grow">Market insights</span>
                       <Tooltip content="Stay informed with real-time market trends and data">
-                        <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer" />
+                        <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer flex-shrink-0" />
                       </Tooltip>
                     </li>
-                    <li className="flex items-center">
-                      <span>✓ Referrals to local lawyers</span>
-                      <Tooltip content="Get connected with experienced local property tax lawyers">
-                        <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer" />
+                    <li className="flex items-start">
+                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 mt-1">
+                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="flex-grow">Annual subscription for monitoring</span>
+                      <Tooltip content="We will monitor your property valuation and tax to notify you if there's an issue">
+                        <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer flex-shrink-0" />
+                      </Tooltip>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 mt-1">
+                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="flex-grow">Referrals to local lawyers</span>
+                      <Tooltip content="Get connected with experienced local property tax lawyers to represent you">
+                        <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer flex-shrink-0" />
                       </Tooltip>
                     </li>
                   </ul>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">Get Started</Button>
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white mt-auto">Get Started</Button>
                 </div>
 
                 {/* Residential Performance-Based Plan */}
-                <div className="flex flex-col items-center text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                <div className="flex flex-col items-center text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg h-full">
                   <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Residential Full Service</h2>
                   <p className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-4">30%<span className="text-sm text-gray-600 dark:text-gray-400"> of savings</span></p>
-                  <ul className="text-left text-gray-600 dark:text-gray-300 mb-6">
-                    <li className="mb-2 flex items-center">
-                      <span>✓ We handle everything</span>
+                  <ul className="text-left text-gray-600 dark:text-gray-300 mb-6 flex-grow space-y-4">
+                    <li className="flex items-start">
+                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 mt-1">
+                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="flex-grow">We handle everything</span>
                       <Tooltip content="Our experts manage the entire property tax appeal process for you">
-                        <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer" />
+                        <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer flex-shrink-0" />
                       </Tooltip>
                     </li>
-                    <li className="mb-2 flex items-center">
-                      <span>✓ No upfront costs</span>
+                    <li className="flex items-start">
+                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 mt-1">
+                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="flex-grow">No upfront costs</span>
                       <Tooltip content="You only pay if we successfully reduce your property taxes">
-                        <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer" />
+                        <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer flex-shrink-0" />
                       </Tooltip>
                     </li>
-                    <li className="flex items-center">
-                      <span>✓ Pay only if we save you money</span>
+                    <li className="flex items-start">
+                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 mt-1">
+                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="flex-grow">Pay only if we save you money</span>
                       <Tooltip content="Our fee is a percentage of the tax savings we secure for you">
-                        <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer" />
+                        <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer flex-shrink-0" />
                       </Tooltip>
                     </li>
                   </ul>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">Contact Us</Button>
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white mt-auto">Contact Us</Button>
                 </div>
               </div>
             )}
@@ -138,57 +179,87 @@ export default function PricingPage() {
               <div className="flex flex-col items-center">
                 <div className="grid gap-10 md:grid-cols-2 w-full max-w-4xl">
                   {/* Commercial Plan for smaller properties */}
-                  <div className="flex flex-col items-center text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Small Commercial Properties</h2>
+                  <div className="flex flex-col items-center text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg h-full">
+                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Small Scale Commercial</h2>
                     <p className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-4">30%<span className="text-sm text-gray-600 dark:text-gray-400"> of savings</span></p>
-                    <ul className="text-left text-gray-600 dark:text-gray-300 mb-6">
-                      <li className="mb-2 flex items-center">
-                        <span>✓ For properties with less than 3 units</span>
+                    <ul className="text-left text-gray-600 dark:text-gray-300 mb-6 flex-grow space-y-4">
+                      <li className="flex items-start">
+                        <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 mt-1">
+                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span className="flex-grow">For properties with less than 3 units</span>
                         <Tooltip content="Ideal for small commercial buildings or multi-family properties">
-                          <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer" />
+                          <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer flex-shrink-0" />
                         </Tooltip>
                       </li>
-                      <li className="mb-2 flex items-center">
-                        <span>✓ Property tax burden under $100,000</span>
+                      <li className="flex items-start">
+                        <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 mt-1">
+                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span className="flex-grow">Property tax burden under $100,000</span>
                         <Tooltip content="Suitable for properties with lower tax assessments">
-                          <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer" />
+                          <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer flex-shrink-0" />
                         </Tooltip>
                       </li>
-                      <li className="flex items-center">
-                        <span>✓ Expert commercial valuation</span>
+                      <li className="flex items-start">
+                        <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 mt-1">
+                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span className="flex-grow">Expert commercial valuation</span>
                         <Tooltip content="Our team includes specialists in commercial property assessment">
-                          <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer" />
+                          <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer flex-shrink-0" />
                         </Tooltip>
                       </li>
                     </ul>
-                    <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">Get Started</Button>
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white mt-auto">Get Started</Button>
                   </div>
 
                   {/* Commercial Plan for larger properties */}
-                  <div className="flex flex-col items-center text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Large Commercial Properties</h2>
+                  <div className="flex flex-col items-center text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg h-full">
+                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Large Scale Commercial</h2>
                     <p className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-4">Customized Solutions</p>
-                    <ul className="text-left text-gray-600 dark:text-gray-300 mb-6">
-                      <li className="mb-2 flex items-center">
-                        <span>✓ For properties with 3 or more units</span>
+                    <ul className="text-left text-gray-600 dark:text-gray-300 mb-6 flex-grow space-y-4">
+                      <li className="flex items-start">
+                        <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 mt-1">
+                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span className="flex-grow">For properties with 3 or more units</span>
                         <Tooltip content="Tailored for larger commercial buildings or extensive multi-family properties">
-                          <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer" />
+                          <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer flex-shrink-0" />
                         </Tooltip>
                       </li>
-                      <li className="mb-2 flex items-center">
-                        <span>✓ Property tax burden $100,000 or more</span>
+                      <li className="flex items-start">
+                        <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 mt-1">
+                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span className="flex-grow">Property tax burden $100,000 or more</span>
                         <Tooltip content="Designed for properties with significant tax assessments">
-                          <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer" />
+                          <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer flex-shrink-0" />
                         </Tooltip>
                       </li>
-                      <li className="flex items-center">
-                        <span>✓ Personalized strategy and pricing</span>
+                      <li className="flex items-start">
+                        <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center mr-2 mt-1">
+                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span className="flex-grow">Personalized strategy and pricing</span>
                         <Tooltip content="We'll create a custom plan tailored to your specific property and needs">
-                          <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer" />
+                          <Info className="ml-2 h-4 w-4 text-blue-500 cursor-pointer flex-shrink-0" />
                         </Tooltip>
                       </li>
                     </ul>
-                    <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">Contact Us</Button>
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white mt-auto">Contact Us</Button>
                   </div>
                 </div>
               </div>

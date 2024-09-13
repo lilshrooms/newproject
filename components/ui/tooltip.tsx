@@ -16,11 +16,21 @@ export function Tooltip({ content, children }: TooltipProps) {
       >
         {children}
       </div>
-      {isVisible && (
-        <div className="absolute z-10 p-4 mt-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg shadow-lg tooltip dark:from-blue-800 dark:to-purple-800 w-64 transition-opacity duration-300 ease-in-out">
-          {content}
-        </div>
-      )}
+      <div 
+        className={`
+          absolute z-10 p-2 mt-1 text-sm font-medium text-white 
+          bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 
+          w-64 transition-opacity duration-300 ease-in-out
+          ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}
+        `}
+        style={{
+          left: 'calc(100% + 10px)',
+          top: '50%',
+          transform: 'translateY(-50%)',
+        }}
+      >
+        {content}
+      </div>
     </div>
   );
 }
