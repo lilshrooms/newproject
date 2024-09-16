@@ -5,7 +5,8 @@ import Link from "next/link"
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Home, ArrowLeft } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
+import Header from "@/components/Header/header"
 
 export default function GetStartedPage() {
   const [formData, setFormData] = useState({
@@ -34,13 +35,8 @@ export default function GetStartedPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
-      <header className="px-4 lg:px-6 h-16 flex items-center shadow-md bg-white dark:bg-gray-800">
-        <Link className="flex items-center justify-center" href="/">
-          <Home className="h-6 w-6 mr-2 text-blue-600 dark:text-blue-400" />
-          <span className="font-bold text-xl text-blue-600 dark:text-blue-400">Home<span className="text-gray-800 dark:text-white">Base</span></span>
-        </Link>
-      </header>
-      <main className="flex-1 container mx-auto px-4 py-8">
+      <Header />
+      <main className="flex-1 container mx-auto px-4 py-8 mt-20">
         <Link href="/" className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Home

@@ -8,6 +8,7 @@ import { Home, DollarSign, TrendingUp, Shield, Moon } from "lucide-react"
 import Chatbot from "../components/Chatbox"
 import Image from 'next/image'
 import { Image as UIImage } from '@/components/ui/Image'
+import Header from "@/components/Header/header"
 
 export default function LandingPage() {
   const [darkMode, setDarkMode] = useState(false)
@@ -33,29 +34,7 @@ export default function LandingPage() {
 
   return (
     <div className={`flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-white ${darkMode ? 'dark:from-gray-900 dark:to-gray-800' : ''}`}>
-      <header className="fixed top-0 left-0 right-0 px-4 lg:px-6 h-16 flex items-center shadow-md bg-white dark:bg-gray-800 z-50">
-        <Link className="flex items-center justify-center" href="#">
-          <Home className="h-6 w-6 mr-2 text-blue-600 dark:text-blue-400" />
-          <span className="font-bold text-xl text-blue-600 dark:text-blue-400">Home<span className="text-gray-800 dark:text-white">Base</span></span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:font-bold transition-all" href="#">
-            Features
-          </Link>
-          <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:font-bold transition-all" href="/pricing">
-            Pricing
-          </Link>
-          <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:font-bold transition-all" href="#">
-            About
-          </Link>
-          <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:font-bold transition-all" href="#">
-            Contact
-          </Link>
-          <button onClick={toggleDarkMode} className="text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            <Moon className="h-6 w-6" />
-          </button>
-        </nav>
-      </header>
+      <Header />
       <main className="flex-1 pt-16">
         <section className="w-full py-2 md:py-4 lg:py-6 xl:py-8 px-4 md:px-6">
           <div className="container mx-auto">
@@ -159,7 +138,7 @@ export default function LandingPage() {
               <Link className="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors" href="/privacy">
                 Privacy Policy
               </Link>
-              <Link className="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors" href="#">
+              <Link className="text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors" href="mailto:admin@yourhomebase.co">
                 Contact Us
               </Link>
             </nav>

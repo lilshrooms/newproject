@@ -1,70 +1,19 @@
 'use client'
 
+import Header from "@/components/header/header"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Home, Moon, Building, Info, Menu } from "lucide-react"
-import { useState, useEffect } from "react"
+import { Home, Building, Info } from "lucide-react"
+import { useState } from "react"
 import { Tooltip } from "@/components/ui/tooltip"
 
 export default function PricingPage() {
-  const [darkMode, setDarkMode] = useState(false)
   const [activeTab, setActiveTab] = useState('homeowners')
-  const [menuOpen, setMenuOpen] = useState(false)
-
-  useEffect(() => {
-    const isDarkMode = localStorage.getItem('darkMode') === 'true'
-    setDarkMode(isDarkMode)
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark')
-    }
-  }, [])
-
-  const toggleDarkMode = () => {
-    const newDarkMode = !darkMode
-    setDarkMode(newDarkMode)
-    localStorage.setItem('darkMode', newDarkMode.toString())
-    if (newDarkMode) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen)
-  }
 
   return (
-    <div className={`flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-white ${darkMode ? 'dark:from-gray-900 dark:to-gray-800' : ''}`}>
-      <header className="fixed top-0 left-0 right-0 px-4 lg:px-6 h-16 flex items-center shadow-md bg-white dark:bg-gray-800 z-50">
-        <Link className="flex items-center justify-center" href="/">
-          <Home className="h-6 w-6 mr-2 text-blue-600 dark:text-blue-400" />
-          <span className="font-bold text-xl text-blue-600 dark:text-blue-400">Home<span className="text-gray-800 dark:text-white">Base</span></span>
-        </Link>
-        <nav className="ml-auto flex items-center">
-          <button onClick={toggleMenu} className="text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors lg:hidden">
-            <Menu className="h-6 w-6" />
-          </button>
-          <div className={`flex-col lg:flex-row lg:flex ${menuOpen ? 'flex' : 'hidden'} lg:gap-4 sm:gap-6`}>
-            <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:font-bold transition-all" href="#">
-              Features
-            </Link>
-            <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:font-bold transition-all" href="/pricing">
-              Pricing
-            </Link>
-            <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:font-bold transition-all" href="#">
-              About
-            </Link>
-            <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:font-bold transition-all" href="mailto:admin@yourhomebase.co">
-              Contact Us
-            </Link>
-            <button onClick={toggleDarkMode} className="text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-              <Moon className="h-6 w-6" />
-            </button>
-          </div>
-        </nav>
-      </header>
-      <main className="flex-1 pt-16">
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <Header />
+      <main className="flex-1 pt-20">
         <section className="w-full py-8 md:py-16 lg:py-24 xl:py-32 px-4 md:px-6">
           <div className="container mx-auto">
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 focus:outline-none text-center mb-8">
