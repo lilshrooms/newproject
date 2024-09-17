@@ -1,4 +1,10 @@
+# Ignore macOS system files
 .DS_Store
-node_modules/@next/swc-darwin-arm64/next-swc.darwin-arm64.node
+
+# Ignore all node_modules directories
 node_modules/
-node_modules/
+
+# The following lines should not be in .gitignore:
+# echo "node_modules/" >> .gitignore
+# git add .gitignore
+# git commit -m "Add node_modules to .gitignore"
