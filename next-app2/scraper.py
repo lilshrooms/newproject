@@ -20,7 +20,7 @@ def scrape_page(url):
         # Find the property location
         prop_loc_element = driver.find_element(By.XPATH, "//font[contains(text(), 'Prop Loc:')]/following-sibling::font")
         if prop_loc_element:
-            records['Property Location'] = prop_loc_element.text.strip()2
+            records['Property Location'] = prop_loc_element.text.strip()
             print(f"Found Property Location: {records['Property Location']}")
         else:
             print("Couldn't find the value for Property Location")
