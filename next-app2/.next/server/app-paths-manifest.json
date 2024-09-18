@@ -1,7 +1,5 @@
 {
-  "/pricing/page": "app/pricing/page.js",
-  "/property-details/page": "app/property-details/page.js",
-  "/login/page": "app/login/page.js",
-  "/signup/page": "app/signup/page.js",
-  "/about/page": "app/about/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/signup/page2": "app/signup/page2.js",
+  "/signup/page": "app/signup/page.js"
 }

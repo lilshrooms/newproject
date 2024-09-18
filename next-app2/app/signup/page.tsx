@@ -10,15 +10,22 @@ import Footer from '@/components/footer/footer'
 export default function SignUpPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
-  const handleSignUp = (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (password !== confirmPassword) {
+      alert("Passwords do not match")
+      return
+    }
     // Here you would typically send the email and password to your backend for processing
     console.log(`Signing up with email: ${email} and password: ${password}`)
     // Reset the form fields after submission
     setEmail('')
     setPassword('')
-    // You might want to show a success message to the user here
+    setConfirmPassword('')
+    // Redirect to page2.tsx after successful sign up
+    window.location.href = '/signup/page2'
   }
 
   return (
@@ -55,6 +62,21 @@ export default function SignUpPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 block w-full"
+              />
+            </div>
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Confirm Password
+              </label>
+              <Input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                autoComplete="current-password"
+                required
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 className="mt-1 block w-full"
               />
             </div>

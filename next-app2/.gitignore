@@ -1,6 +1,7 @@
 echo "node_modules/" >> .gitignore
 echo ".DS_Store" >> .gitignore
 echo "*/.DS_Store" >> .gitignore
+echo "node_modules/@next/swc-darwin-arm64/next-swc.darwin-arm64.node" >> .gitignore
 cat << EOF >> .gitignore
 # Dependencies
 **/node_modules/
