@@ -10,6 +10,7 @@ import Header from "@/components/header/header"
 import Footer from "@/components/footer/footer"
 import Script from 'next/script'
 import Image from 'next/image'
+import ReactiveButton from 'reactive-button'
 
 declare global {
   interface Window {
@@ -20,6 +21,7 @@ declare global {
 export default function GetStartedPage() {
   const [address, setAddress] = useState('')
   const [autocomplete, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null)
+  const [buttonState, setButtonState] = useState('idle')
 
   const router = useRouter()
 
@@ -42,7 +44,10 @@ export default function GetStartedPage() {
   }, [])
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
+    setButtonState('loading')
     if (autocomplete) {
       const place = autocomplete.getPlace()
       if (place && place.address_components) {
@@ -67,13 +72,18 @@ export default function GetStartedPage() {
               break
           }
         }
-        const query = new URLSearchParams({ street, city, state, zipCode }).toString()
-        router.push(`/property-details?${query}`)
+        setTimeout(() => {
+          setButtonState('success')
+          const query = new URLSearchParams({ street, city, state, zipCode }).toString()
+          router.push(`/property-details?${query}`)
+        }, 2000)
       } else {
         console.log('No place selected')
+        setButtonState('error')
       }
     } else {
       console.log('Autocomplete not initialized')
+      setButtonState('error')
     }
   }
 
@@ -103,9 +113,18 @@ export default function GetStartedPage() {
                 required
                 className="flex-grow bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white h-12"
               />
-              <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105 h-12">
-                Submit
-              </Button>
+              <ReactiveButton
+                buttonState={buttonState}
+                idleText="Submit"
+                loadingText="AI Analysis..."
+                successText="Success!"
+                errorText="Error!"
+                color="blue"
+                width="145x"
+                height="48px"
+                className="rounded-full transition-all duration-450 transform hover:scale-105"
+                onClick={handleSubmit}
+              />
             </div>
           </div>
         </form>

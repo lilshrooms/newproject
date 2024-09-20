@@ -35,7 +35,7 @@ export default function AboutPage() {
     <div className={`flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-white ${darkMode ? 'dark:from-gray-900 dark:to-gray-800' : ''}`}>
       <Header />
       <main className="flex-1">
-        <section className="w-full py-8 md:py-16 lg:py-24 xl:py-32 px-4 md:px-6">
+        <section className="w-full py-8 md:py-12 lg:py-16 xl:py-20 px-4 md:px-6">
           <div className="container mx-auto">
             <div className="flex flex-col items-center space-y-4 text-center">
               <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 focus:outline-none mb-2">
@@ -52,8 +52,8 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
-        <section className="w-full py-8 md:py-16 bg-blue-600 dark:bg-blue-400">
-          <div className="container mx-auto px-4 md:px-6">
+        <section className="w-full py-8 md:py-12 bg-blue-600 dark:bg-blue-400">
+          <div className="container mx-auto px-2 md:px-3">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div className="bg-blue-600 dark:bg-blue-400 text-white dark:text-gray-900 p-4 rounded-lg">
                 <h3 className="text-4xl font-bold mb-2 text-white dark:text-gray-900">40+ counties</h3>

@@ -87,7 +87,13 @@ export default function LandingPage() {
             </h2>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               <div className="flex flex-col items-center text-center bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105">
-                <DollarSign className="h-12 w-12 mb-4 text-blue-600 dark:text-blue-400" />
+                <Image
+                  src="/images/dollar-sign.svg"
+                  alt="Dollar Sign"
+                  width={48}
+                  height={48}
+                  className="mb-4 text-blue-600 dark:text-blue-400"
+                />
                 <h3 className="text-lg font-bold text-gray-800 dark:text-white">Accurate Valuations</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
                   Our advanced algorithms ensure precise property tax assessments.
