@@ -10,10 +10,19 @@ import Image from 'next/image'
 import { Image as UIImage } from '@/components/ui/Image'
 import Header from "../components/header/header"
 import Footer from "../components/footer/footer"
+import { createClient } from '@supabase/supabase-js'
+
+// initialize supabase client
+const supabaseUrl = 'https://ibktlbeduwmyvnvoubha.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlia3RsYmVkdXdteXZudm91YmhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjYyNDM3ODMsImV4cCI6MjA0MTgxOTc4M30.mVqi9p5DDgCBr7a2usiNFiRGiinbAa4a7Ig8Hvrke9o'
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 export default function LandingPage() {
   const [darkMode, setDarkMode] = useState(false)
   const [email, setEmail] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [message, setMessage] = useState("")
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
 
   useEffect(() => {
     const isDarkMode = localStorage.getItem('darkMode') === 'true'
@@ -34,13 +43,48 @@ export default function LandingPage() {
     }
   }
 
-  const handleSignUp = (e: React.FormEvent) => {
+  const validateEmail = (email: string) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return re.test(String(email).toLowerCase())
+  }
+
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would typically send the email to your backend or email service
-    console.log(`Signing up with email: ${email}`)
-    // Reset the email input after submission
-    setEmail("")
-    // You might want to show a success message to the user here
+    setIsLoading(true)
+    setMessage("")
+
+    if (!validateEmail(email)) {
+      setMessage("Please enter a valid email address.")
+      setIsLoading(false)
+      return
+    }
+
+    try {
+      console.log(`Attempting to sign up with email: ${email}`)
+      const { data, error } = await supabase
+        .from('contacts')
+        .insert([{ email: email }])
+
+      if (error) throw error
+
+      console.log(`Successfully signed up with email: ${email}`, data)
+      setMessage("Congrats, you're on our waitlist!")
+      setEmail("")
+      setShowSuccessModal(true)
+    } catch (error) {
+      console.error('Error inserting email:', error)
+      if (error.message) {
+        setMessage(`An error occurred: ${error.message}`)
+      } else {
+        setMessage("An unknown error occurred. Please try again later.")
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const closeSuccessModal = () => {
+    setShowSuccessModal(false)
   }
 
   return (
@@ -136,10 +180,12 @@ export default function LandingPage() {
                   <Button 
                     type="submit" 
                     className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105"
+                    disabled={isLoading}
                   >
-                    Sign Up
+                    {isLoading ? 'Joining...' : 'Join Waitlist'}
                   </Button>
                 </form>
+                {message && <p className="text-sm text-green-600 dark:text-green-400">{message}</p>}
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   Start your free trial today. No credit card required.
                 </p>
@@ -150,6 +196,20 @@ export default function LandingPage() {
       </main>
       <Footer />
       <Chatbot />
+      {showSuccessModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl">
+            <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Success!</h3>
+            <p className="text-gray-600 dark:text-gray-300 mb-6">Thank you for joining our waitlist. We'll be in touch soon!</p>
+            <Button 
+              onClick={closeSuccessModal}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105"
+            >
+              Close
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

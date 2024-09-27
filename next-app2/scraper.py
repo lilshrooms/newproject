@@ -1,14 +1,16 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 import time
 import os
 import json
 
 def scrape_page(url):
-    service = Service('path/to/chromedriver')  # updating this path
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')  # run in headless mode
+    chrome_driver_path = "/path/to/chromedriver"  # update this path
+    service = Service(chrome_driver_path)
+    options = Options()
+    options.add_argument('--headless')  # please run this in headless mode
     driver = webdriver.Chrome(service=service, options=options)
 
     try:
@@ -37,7 +39,7 @@ def save_to_file(records):
         os.makedirs('property_records')
 
     # unique filename based on timestamp and part of URL
-    url_part = url[8:23]  # 15 characters after 'https://'
+    url_part = url[8:23]  # 15 chars after 'https://'
     filename = f"property_records/record_{url_part}_{int(time.time())}.json"
 
     # saving as JSON
