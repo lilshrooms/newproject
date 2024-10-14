@@ -2,12 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 import os
 import json
 
 def scrape_page(url):
-    chrome_driver_path = "/path/to/chromedriver"  # update this path
+    chrome_driver_path = "/usr/local/bin/chromedriver"
     service = Service(chrome_driver_path)
     options = Options()
     options.add_argument('--headless')  # please run this in headless mode
@@ -21,13 +23,18 @@ def scrape_page(url):
             'Property Location': ''
         }
 
-        # property_location
-        prop_loc_element = driver.find_element(By.XPATH, "//font[contains(text(), 'Prop Loc:')]/following-sibling::font")
+        # Wait for the element to be present
+        prop_loc_element = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//font[contains(text(), 'Prop Loc:')]/following-sibling::font"))
+        )
         if prop_loc_element:
             records['Property Location'] = prop_loc_element.text.strip()
             print(f"Found Property Location: {records['Property Location']}")
         else:
             print("Couldn't find the value for Property Location")
+
+    except selenium.common.exceptions.TimeoutException:
+        print("Element not found within the given time")
 
     finally:
         driver.quit()
@@ -48,8 +55,8 @@ def save_to_file(records):
 
     print(f"Records saved to {filename}")
 
-def main():
-    url = "https://taxrecords-nj.com/pub/cgi/m4.cgi?district=0201&l02=020100101____00001_________M"
+def main(): #insert url below"
+    url = "https://taxrecords-nj.com/pub/cgi/m4.cgi?district=0201&l02=020100101____00005_________M&hist=1"
     print(f"Attempting to scrape URL: {url}")
     records = scrape_page(url)
 
