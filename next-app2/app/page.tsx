@@ -215,3 +215,5 @@ export default function LandingPage() {
     </div>
   )
 }
+
+// add CTA to adding the waitlist // 

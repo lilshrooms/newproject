@@ -1,11 +1,11 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/$1" },
-    { "source": "/appeal", "destination": "/appeal" },
-    { "source": "/api/(.*)", "destination": "/api/$1" }
-  ],
+  "buildCommand": "next build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
   "routes": [
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    }
   ]
 }
