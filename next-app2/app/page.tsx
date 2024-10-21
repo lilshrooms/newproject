@@ -29,6 +29,8 @@ export default function LandingPage() {
     setDarkMode(isDarkMode)
     if (isDarkMode) {
       document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
     }
   }, [])
 
@@ -71,7 +73,7 @@ export default function LandingPage() {
       setMessage("Congrats, you're on our waitlist!")
       setEmail("")
       setShowSuccessModal(true)
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error inserting email:', error)
       if (error.message) {
         setMessage(`An error occurred: ${error.message}`)
@@ -215,5 +217,3 @@ export default function LandingPage() {
     </div>
   )
 }
-
-// add CTA to adding the waitlist // 

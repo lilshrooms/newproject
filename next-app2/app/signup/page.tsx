@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import Header from '@/components/header/header'
@@ -11,6 +12,7 @@ export default function SignUpPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const router = useRouter()
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -24,8 +26,8 @@ export default function SignUpPage() {
     setEmail('')
     setPassword('')
     setConfirmPassword('')
-    // Redirect to page2.tsx after successful sign up
-    window.location.href = '/signup/page2'
+    // Redirect to step1 after successful sign up
+    router.push('/signup/step1')
   }
 
   return (
