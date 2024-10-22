@@ -223,6 +223,14 @@ export default function Dashboard() {
                   </LoadScript>
                 </div>
               </div>
+              <div className="mt-4 text-center">
+                <button
+                  onClick={() => alert('Initiating appeal process...')}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Appeal Property Tax Assessment
+                </button>
+              </div>
             </div>
             <div className="flex flex-col" ref={rightColumnRef}>
               <div className="bg-white p-4 rounded-lg shadow-md mb-6">
@@ -233,7 +241,7 @@ export default function Dashboard() {
                     <p><strong>Estimated Value:</strong> {selectedProperty.value}</p>
                     <p><strong>Last Assessment:</strong> {selectedProperty.lastAssessment}</p>
                     <p><strong>Tax Rate:</strong> {selectedProperty.taxRate}</p>
-                    <p><strong>Annual Property Tax:</strong> <span className="text-red-600">{selectedProperty.annualTax}</span></p>
+                    <p><strong>Annual Property Tax:</strong> <span className="text-red-700">{selectedProperty.annualTax}</span></p>
                   </div>
                 ) : (
                   <p className="text-gray-500">Select a property on the map to view details</p>
