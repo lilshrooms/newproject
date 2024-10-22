@@ -1,11 +1,19 @@
-import dynamic from 'next/dynamic';
+'use client'
 
-const MapWithNoSSR = dynamic(() => import('@/components/Map'), {
+import dynamic from 'next/dynamic';
+import DashboardHeader from '@/components/DashboardHeader';  // Adjust the import path as needed
+import SideNav from '@/components/SideNav';  // Adjust the import path as needed
+import { useState } from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+
+const MapWithNoSSR = dynamic(() => import('@/components/GoogleMap'), {
   ssr: false,
   loading: () => <p>Loading Map...</p>
 });
 
 export default function Dashboard() {
+  const [selectedProperty, setSelectedProperty] = useState(null);
+
   const simulatedProperties = [
     {
       id: 1,
@@ -14,7 +22,7 @@ export default function Dashboard() {
       lastAssessment: '01/15/2023',
       taxRate: '1.2%',
       annualTax: '$4,200',
-      coordinates: [40.7128, -74.0060],
+      coordinates: { lat: 40.7128, lng: -74.0060 },
     },
     {
       id: 2,
@@ -23,7 +31,7 @@ export default function Dashboard() {
       lastAssessment: '03/22/2023',
       taxRate: '1.1%',
       annualTax: '$4,675',
-      coordinates: [40.7282, -73.7949],
+      coordinates: { lat: 40.7282, lng: -73.7949 },
     },
     {
       id: 3,
@@ -32,9 +40,19 @@ export default function Dashboard() {
       lastAssessment: '11/30/2022',
       taxRate: '1.3%',
       annualTax: '$3,575',
-      coordinates: [40.6782, -73.9442],
+      coordinates: { lat: 40.6782, lng: -73.9442 },
     },
   ];
+
+  const mapContainerStyle = {
+    width: '100%',
+    height: '100%',
+  };
+
+  const center = {
+    lat: 40.7128,
+    lng: -74.0060,
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -46,23 +64,41 @@ export default function Dashboard() {
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
-              <div className="bg-white p-4 rounded-lg shadow-md h-96">
+              <div className="bg-white p-4 rounded-lg shadow-md h-[calc(100vh-200px)]">
                 <h2 className="text-xl font-semibold mb-4 text-blue-900">Property Map</h2>
-                <MapWithNoSSR properties={simulatedProperties} />
+                <div className="h-[calc(100%-2rem)]">
+                  <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
+                    <GoogleMap
+                      mapContainerStyle={mapContainerStyle}
+                      center={center}
+                      zoom={10}
+                    >
+                      {simulatedProperties.map((property) => (
+                        <Marker
+                          key={property.id}
+                          position={property.coordinates}
+                          onClick={() => setSelectedProperty(property)}
+                        />
+                      ))}
+                    </GoogleMap>
+                  </LoadScript>
+                </div>
               </div>
             </div>
             <div>
               <div className="bg-white p-4 rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold mb-4 text-blue-900">Property Information</h2>
-                <div className="space-y-2 text-gray-700">
-                  <p><strong>Address:</strong> {simulatedProperties[0].address}</p>
-                  <p><strong>Estimated Value:</strong> {simulatedProperties[0].value}</p>
-                  <p><strong>Last Assessment:</strong> {simulatedProperties[0].lastAssessment}</p>
-                  <p><strong>Tax Rate:</strong> {simulatedProperties[0].taxRate}</p>
-                  <p>
-                    <strong>Annual Property Tax:</strong> {simulatedProperties[0].annualTax}
-                  </p>
-                </div>
+                {selectedProperty ? (
+                  <div className="space-y-2 text-gray-700">
+                    <p><strong>Address:</strong> {selectedProperty.address}</p>
+                    <p><strong>Estimated Value:</strong> {selectedProperty.value}</p>
+                    <p><strong>Last Assessment:</strong> {selectedProperty.lastAssessment}</p>
+                    <p><strong>Tax Rate:</strong> {selectedProperty.taxRate}</p>
+                    <p><strong>Annual Property Tax:</strong> <span className="text-red-600">{selectedProperty.annualTax}</span></p>
+                  </div>
+                ) : (
+                  <p className="text-gray-500">Select a property on the map to view details</p>
+                )}
               </div>
             </div>
           </div>
