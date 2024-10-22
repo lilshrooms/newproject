@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import DashboardHeader from '@/components/DashboardHeader';  // Adjust the import path as needed
 import SideNav from '@/components/SideNav';  // Adjust the import path as needed
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Label, BarChart, Bar } from 'recharts';
 import { TooltipProps } from 'recharts';
@@ -29,6 +29,26 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>)
 export default function Dashboard() {
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [marketTrendView, setMarketTrendView] = useState('state');
+  const [mapHeight, setMapHeight] = useState('100%');
+  const rightColumnRef = useRef(null);
+  const mapContainerRef = useRef(null);
+
+  useEffect(() => {
+    const updateMapHeight = () => {
+      if (rightColumnRef.current && mapContainerRef.current) {
+        const rightColumnHeight = rightColumnRef.current.offsetHeight;
+        const mapContainerHeight = mapContainerRef.current.offsetHeight;
+        setMapHeight(`${Math.min(rightColumnHeight, mapContainerHeight)}px`);
+      }
+    };
+
+    updateMapHeight();
+    window.addEventListener('resize', updateMapHeight);
+
+    return () => {
+      window.removeEventListener('resize', updateMapHeight);
+    };
+  }, []);
 
   const simulatedProperties = [
     {
@@ -79,6 +99,70 @@ export default function Dashboard() {
         { year: 2022, amount: 3800, neighborhoodAvg: 5400 },
       ]
     },
+    {
+      id: 4,
+      address: '321 Pine St, Newtown, USA',
+      value: '$350,000',
+      lastAssessment: '02/28/2023',
+      taxRate: '1.25%',
+      annualTax: '$4,375',
+      coordinates: { lat: 40.7589, lng: -73.9851 },
+      taxHistory: [
+        { year: 2018, amount: 3800, neighborhoodAvg: 4800 },
+        { year: 2019, amount: 4000, neighborhoodAvg: 5000 },
+        { year: 2020, amount: 4200, neighborhoodAvg: 5200 },
+        { year: 2021, amount: 4300, neighborhoodAvg: 5400 },
+        { year: 2022, amount: 4375, neighborhoodAvg: 5600 },
+      ]
+    },
+    {
+      id: 5,
+      address: '654 Maple Ave, Oldtown, USA',
+      value: '$500,000',
+      lastAssessment: '04/15/2023',
+      taxRate: '1.4%',
+      annualTax: '$7,000',
+      coordinates: { lat: 40.7831, lng: -73.9712 },
+      taxHistory: [
+        { year: 2018, amount: 6000, neighborhoodAvg: 6500 },
+        { year: 2019, amount: 6200, neighborhoodAvg: 6700 },
+        { year: 2020, amount: 6500, neighborhoodAvg: 7000 },
+        { year: 2021, amount: 6800, neighborhoodAvg: 7200 },
+        { year: 2022, amount: 7000, neighborhoodAvg: 7500 },
+      ]
+    },
+    {
+      id: 6,
+      address: '987 Cedar Rd, Uptown, USA',
+      value: '$600,000',
+      lastAssessment: '05/01/2023',
+      taxRate: '1.5%',
+      annualTax: '$9,000',
+      coordinates: { lat: 40.8075, lng: -73.9619 },
+      taxHistory: [
+        { year: 2018, amount: 7500, neighborhoodAvg: 8000 },
+        { year: 2019, amount: 8000, neighborhoodAvg: 8500 },
+        { year: 2020, amount: 8300, neighborhoodAvg: 8800 },
+        { year: 2021, amount: 8700, neighborhoodAvg: 9200 },
+        { year: 2022, amount: 9000, neighborhoodAvg: 9500 },
+      ]
+    },
+    {
+      id: 7,
+      address: '159 Birch Ln, Downtown, USA',
+      value: '$400,000',
+      lastAssessment: '03/10/2023',
+      taxRate: '1.35%',
+      annualTax: '$5,400',
+      coordinates: { lat: 40.7127, lng: -74.0134 },
+      taxHistory: [
+        { year: 2018, amount: 4800, neighborhoodAvg: 5200 },
+        { year: 2019, amount: 5000, neighborhoodAvg: 5400 },
+        { year: 2020, amount: 5200, neighborhoodAvg: 5600 },
+        { year: 2021, amount: 5300, neighborhoodAvg: 5800 },
+        { year: 2022, amount: 5400, neighborhoodAvg: 6000 },
+      ]
+    },
   ];
 
   const mapContainerStyle = {
@@ -118,9 +202,9 @@ export default function Dashboard() {
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
-              <div className="bg-white p-4 rounded-lg shadow-md h-[calc(100vh-200px)]">
+              <div className="bg-white p-4 rounded-lg shadow-md" style={{ height: mapHeight }} ref={mapContainerRef}>
                 <h2 className="text-xl font-semibold mb-4 text-blue-900">Property Map</h2>
-                <div className="h-[calc(100%-2rem)]">
+                <div style={{ height: 'calc(100% - 2rem)' }}>
                   <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
                     <GoogleMap
                       mapContainerStyle={mapContainerStyle}
@@ -132,7 +216,7 @@ export default function Dashboard() {
                           key={property.id}
                           position={property.coordinates}
                           onClick={() => setSelectedProperty(property)}
-                          icon={property.address.includes('111 Broadway') ? 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' : undefined}
+                          icon={property.address.includes('111 Broadway') ? 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' : 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'}
                         />
                       ))}
                     </GoogleMap>
@@ -140,7 +224,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col" ref={rightColumnRef}>
               <div className="bg-white p-4 rounded-lg shadow-md mb-6">
                 <h2 className="text-xl font-semibold mb-4 text-blue-900">Property Information</h2>
                 {selectedProperty ? (
@@ -230,26 +314,8 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-            <DashboardCard title="My Properties" count={simulatedProperties.length} link="/my-properties" />
-            <DashboardCard title="Saved Searches" count={3} link="/saved-searches" />
-            <DashboardCard title="Recent Market Trends" link="/market-trends" />
-            <DashboardCard title="Investment Opportunities" count={8} link="/opportunities" />
-            <DashboardCard title="Notifications" count={2} link="/notifications" />
-            <DashboardCard title="Account Settings" link="/settings" />
-          </div>
         </main>
       </div>
     </div>
-  );
-}
-
-function DashboardCard({ title, count, link }: { title: string; count?: number; link: string }) {
-  return (
-    <a href={link} className="block bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-      <h2 className="text-xl font-semibold mb-2 text-blue-900">{title}</h2>
-      {count !== undefined && <p className="text-3xl font-bold text-blue-600">{count}</p>}
-    </a>
   );
 }
