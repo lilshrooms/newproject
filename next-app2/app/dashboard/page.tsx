@@ -305,7 +305,7 @@ export default function Dashboard() {
                       }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="year" />
+                      <XAxis dataKey="year" tick={{ fill: '#333' }} />
                       <YAxis yAxisId="left" orientation="left" stroke="#8884d8">
                         <Label value="Valuation ($)" angle={-90} position="insideLeft" />
                       </YAxis>
