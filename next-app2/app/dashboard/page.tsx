@@ -7,6 +7,7 @@ import { useState, useRef, useEffect } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Label, BarChart, Bar } from 'recharts';
 import { TooltipProps } from 'recharts';
+import { useRouter } from 'next/navigation';
 
 const MapWithNoSSR = dynamic(() => import('@/components/GoogleMap'), {
   ssr: false,
@@ -19,7 +20,7 @@ const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>)
       <div className="bg-white p-4 shadow rounded">
         <p className="font-bold">{label}</p>
         <p className="text-blue-600">Your Property: ${payload[0]?.value?.toLocaleString() ?? 'N/A'}</p>
-        <p className="text-green-600">Neighborhood Avg: ${payload[1]?.value?.toLocaleString() ?? 'N/A'}</p>
+        <p className="text-purple-600">Neighborhood Avg: ${payload[1]?.value?.toLocaleString() ?? 'N/A'}</p>
       </div>
     );
   }
@@ -32,6 +33,7 @@ export default function Dashboard() {
   const [mapHeight, setMapHeight] = useState('100%');
   const rightColumnRef = useRef(null);
   const mapContainerRef = useRef(null);
+  const router = useRouter();
 
   useEffect(() => {
     const updateMapHeight = () => {
@@ -53,7 +55,7 @@ export default function Dashboard() {
   const simulatedProperties = [
     {
       id: 1,
-      address: '111 Broadway New York, New York',
+      address: '111 Broadway, New York, NY 10006',
       value: '$450,000',
       lastAssessment: '01/15/2023',
       taxRate: '1.2%',
@@ -69,12 +71,12 @@ export default function Dashboard() {
     },
     {
       id: 2,  
-      address: '456 Elm St, Othertown, USA',
+      address: '350 5th Ave, New York, NY 10118',
       value: '$425,000',
       lastAssessment: '03/22/2023',
       taxRate: '1.1%',
       annualTax: '$4,675',
-      coordinates: { lat: 40.7282, lng: -73.7949 },
+      coordinates: { lat: 40.7484, lng: -73.9857 },
       taxHistory: [
         { year: 2018, amount: 4200, neighborhoodAvg: 5200 },
         { year: 2019, amount: 4400, neighborhoodAvg: 5500 },
@@ -85,12 +87,12 @@ export default function Dashboard() {
     },
     {
       id: 3,
-      address: '789 Oak Ave, Somewhere, USA',
+      address: '30 Rockefeller Plaza, New York, NY 10112',
       value: '$275,000',
       lastAssessment: '11/30/2022',
       taxRate: '1.3%',
       annualTax: '$3,575',
-      coordinates: { lat: 40.6782, lng: -73.9442 },
+      coordinates: { lat: 40.7587, lng: -73.9787 },
       taxHistory: [
         { year: 2018, amount: 3200, neighborhoodAvg: 4200 },
         { year: 2019, amount: 3400, neighborhoodAvg: 4500 },
@@ -101,12 +103,12 @@ export default function Dashboard() {
     },
     {
       id: 4,
-      address: '321 Pine St, Newtown, USA',
+      address: '1 World Trade Center, New York, NY 10007',
       value: '$350,000',
       lastAssessment: '02/28/2023',
       taxRate: '1.25%',
       annualTax: '$4,375',
-      coordinates: { lat: 40.7589, lng: -73.9851 },
+      coordinates: { lat: 40.7127, lng: -74.0134 },
       taxHistory: [
         { year: 2018, amount: 3800, neighborhoodAvg: 4800 },
         { year: 2019, amount: 4000, neighborhoodAvg: 5000 },
@@ -117,12 +119,12 @@ export default function Dashboard() {
     },
     {
       id: 5,
-      address: '654 Maple Ave, Oldtown, USA',
+      address: '20 W 34th St, New York, NY 10001',
       value: '$500,000',
       lastAssessment: '04/15/2023',
       taxRate: '1.4%',
       annualTax: '$7,000',
-      coordinates: { lat: 40.7831, lng: -73.9712 },
+      coordinates: { lat: 40.7484, lng: -73.9857 },
       taxHistory: [
         { year: 2018, amount: 6000, neighborhoodAvg: 6500 },
         { year: 2019, amount: 6200, neighborhoodAvg: 6700 },
@@ -133,12 +135,12 @@ export default function Dashboard() {
     },
     {
       id: 6,
-      address: '987 Cedar Rd, Uptown, USA',
+      address: '45 Rockefeller Plaza, New York, NY 10111',
       value: '$600,000',
       lastAssessment: '05/01/2023',
       taxRate: '1.5%',
       annualTax: '$9,000',
-      coordinates: { lat: 40.8075, lng: -73.9619 },
+      coordinates: { lat: 40.7587, lng: -73.9787 },
       taxHistory: [
         { year: 2018, amount: 7500, neighborhoodAvg: 8000 },
         { year: 2019, amount: 8000, neighborhoodAvg: 8500 },
@@ -149,12 +151,12 @@ export default function Dashboard() {
     },
     {
       id: 7,
-      address: '159 Birch Ln, Downtown, USA',
+      address: '89 E 42nd St, New York, NY 10017',
       value: '$400,000',
       lastAssessment: '03/10/2023',
       taxRate: '1.35%',
       annualTax: '$5,400',
-      coordinates: { lat: 40.7127, lng: -74.0134 },
+      coordinates: { lat: 40.7527, lng: -73.9772 },
       taxHistory: [
         { year: 2018, amount: 4800, neighborhoodAvg: 5200 },
         { year: 2019, amount: 5000, neighborhoodAvg: 5400 },
@@ -216,7 +218,7 @@ export default function Dashboard() {
                           key={property.id}
                           position={property.coordinates}
                           onClick={() => setSelectedProperty(property)}
-                          icon={property.address.includes('111 Broadway') ? 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' : 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'}
+                          icon={property.address.includes('111 Broadway') ? 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' : 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png'}
                         />
                       ))}
                     </GoogleMap>
@@ -225,7 +227,7 @@ export default function Dashboard() {
               </div>
               <div className="mt-4 text-center">
                 <button
-                  onClick={() => alert('Initiating appeal process...')}
+                  onClick={() => router.push('/appeal')}
                   className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Appeal Property Tax Assessment
@@ -269,8 +271,8 @@ export default function Dashboard() {
                       </YAxis>
                       <Tooltip content={<CustomTooltip />} />
                       <Legend verticalAlign="top" height={36}/>
-                      <Line type="monotone" dataKey="amount" name="Your Property" stroke="#8884d8" activeDot={{ r: 8 }} />
-                      <Line type="monotone" dataKey="neighborhoodAvg" name="Neighborhood Average" stroke="#82ca9d" />
+                      <Line type="monotone" dataKey="amount" name="Your Property" stroke="#0000FF" activeDot={{ r: 8 }} />
+                      <Line type="monotone" dataKey="neighborhoodAvg" name="Neighborhood Average" stroke="#FF0000" />
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
@@ -306,16 +308,16 @@ export default function Dashboard() {
                     >
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="year" tick={{ fill: '#333' }} />
-                      <YAxis yAxisId="left" orientation="left" stroke="#8884d8">
-                        <Label value="Valuation ($)" angle={-90} position="insideLeft" />
+                      <YAxis yAxisId="left" orientation="left" stroke="#0000FF" width={80}>
+                        <Label value="Valuation ($)" angle={-90} position="insideLeft" offset={-5} />
                       </YAxis>
-                      <YAxis yAxisId="right" orientation="right" stroke="#82ca9d">
-                        <Label value="Property Tax ($)" angle={90} position="insideRight" />
+                      <YAxis yAxisId="right" orientation="right" stroke="#ee6b6b" width={80}>
+                        <Label value="Property Tax ($)" angle={90} position="insideRight" offset={5} />
                       </YAxis>
                       <Tooltip />
                       <Legend />
-                      <Bar yAxisId="left" dataKey="valuation" fill="#8884d8" name="Valuation" />
-                      <Bar yAxisId="right" dataKey="propertyTax" fill="#82ca9d" name="Property Tax" />
+                      <Bar yAxisId="left" dataKey="valuation" fill="#0000FF" name="Valuation" />
+                      <Bar yAxisId="right" dataKey="propertyTax" fill="#ee6b6b" name="Property Tax" />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
