@@ -56,17 +56,17 @@ export default function Dashboard() {
     {
       id: 1,
       address: '111 Broadway, New York, NY 10006',
-      value: '$450,000',
+      value: '$400,000',
       lastAssessment: '01/15/2023',
-      taxRate: '1.2%',
-      annualTax: '$4,200',
+      taxRate: '1.5%',
+      annualTax: '$6,000',
       coordinates: { lat: 40.7128, lng: -74.0060 },
       taxHistory: [
-        { year: 2018, amount: 4200, neighborhoodAvg: 5500 },
-        { year: 2019, amount: 4300, neighborhoodAvg: 5800 },
-        { year: 2020, amount: 4700, neighborhoodAvg: 6100 },
-        { year: 2021, amount: 4600, neighborhoodAvg: 6400 },
-        { year: 2022, amount: 4200, neighborhoodAvg: 6700 },
+        { year: 2018, amount: 5500, neighborhoodAvg: 5000 },
+        { year: 2019, amount: 5700, neighborhoodAvg: 5200 },
+        { year: 2020, amount: 5900, neighborhoodAvg: 5400 },
+        { year: 2021, amount: 6100, neighborhoodAvg: 5600 },
+        { year: 2022, amount: 6000, neighborhoodAvg: 5800 },
       ]
     },
     {

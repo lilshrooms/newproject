@@ -141,7 +141,7 @@ export default function GetStartedPage() {
               <ReactiveButton
                 buttonState={buttonState}
                 idleText="Submit"
-                loadingText="AI Analysis..."
+                loadingText="AI Analyzing..."
                 successText="Success!"
                 errorText="Error!"
                 color="blue"
@@ -153,8 +153,11 @@ export default function GetStartedPage() {
             </div>
           </div>
         </form>
+        <div className="flex justify-center mt-6">
+          <Image src="/images/search.png" alt="Search" width={600} height={400} />
+        </div>
         <div className="flex justify-center mt-6 w-full h-[400px]">
-          <div ref={mapRef} className="w-full h-full rounded-lg shadow-lg"></div>
+          <div ref={mapRef} className="w-full h-full rounded-lg"></div>
         </div>
       </main>
       <Footer />

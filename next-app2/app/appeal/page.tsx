@@ -12,12 +12,12 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function AppealPage() {
   const [appeals, setAppeals] = useState([]);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [street, setStreet] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [zipCode, setZipCode] = useState('');
+  const [name, setName] = useState('John Appleseed');
+  const [email, setEmail] = useState('johnnyd@homebase.com');
+  const [street, setStreet] = useState('111 Broadway');
+  const [city, setCity] = useState('New York');
+  const [state, setState] = useState('NY');
+  const [zipCode, setZipCode] = useState('10001');
   const [appealText, setAppealText] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,10 +26,10 @@ export default function AppealPage() {
 
   useEffect(() => {
     fetchAppeals();
-    setStreet(searchParams.get('street') || '');
-    setCity(searchParams.get('city') || '');
-    setState(searchParams.get('state') || '');
-    setZipCode(searchParams.get('zipCode') || '');
+    setStreet(searchParams.get('street') || '111 Broadway');
+    setCity(searchParams.get('city') || 'New York');
+    setState(searchParams.get('state') || 'NY');
+    setZipCode(searchParams.get('zipCode') || '10001');
   }, [searchParams]);
 
   async function fetchAppeals() {
@@ -65,12 +65,12 @@ export default function AppealPage() {
       console.error('Error submitting appeal:', error);
     } else {
       setShowConfirmation(true);
-      setName('');
-      setEmail('');
-      setStreet('');
-      setCity('');
-      setState('');
-      setZipCode('');
+      setName('John Appleseed');
+      setEmail('johna@homebase.com');
+      setStreet('111 Broadway');
+      setCity('New York');
+      setState('NY');
+      setZipCode('10001');
       setAppealText('');
       fetchAppeals();
     }
@@ -91,7 +91,6 @@ export default function AppealPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              placeholder="John Appleseed"
               className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
             />
           </div>
@@ -103,7 +102,6 @@ export default function AppealPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="johnnyd@homebase.com"
               className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
             />
           </div>
@@ -115,7 +113,6 @@ export default function AppealPage() {
               value={street}
               onChange={(e) => setStreet(e.target.value)}
               required
-              placeholder="123 Main St"
               className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
             />
           </div>
@@ -128,7 +125,6 @@ export default function AppealPage() {
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 required
-                placeholder="Middle"
                 className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
               />
             </div>
@@ -140,7 +136,6 @@ export default function AppealPage() {
                 value={state}
                 onChange={(e) => setState(e.target.value)}
                 required
-                placeholder="CA"
                 className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
               />
             </div>
@@ -152,7 +147,6 @@ export default function AppealPage() {
                 value={zipCode}
                 onChange={(e) => setZipCode(e.target.value)}
                 required
-                placeholder="12345"
                 className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
               />
             </div>
