@@ -1,9 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Link from "next/link"
 import { useRouter } from 'next/navigation'
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ArrowLeft } from "lucide-react"
 import Header from "@/components/header/header"
@@ -22,8 +21,6 @@ export default function GetStartedPage() {
   const [address, setAddress] = useState('')
   const [autocomplete, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null)
   const [buttonState, setButtonState] = useState('idle')
-  const [streetViewUrl, setStreetViewUrl] = useState('')
-  const mapRef = useRef<HTMLDivElement>(null)
 
   const router = useRouter()
 
@@ -36,14 +33,6 @@ export default function GetStartedPage() {
         )
         setAutocomplete(autocomplete)
         console.log('Autocomplete initialized')
-
-        // Add listener for place changed
-        autocomplete.addListener('place_changed', () => {
-          const place = autocomplete.getPlace()
-          if (place.geometry && place.geometry.location) {
-            updateStreetView(place.geometry.location)
-          }
-        })
       } else {
         console.log('Google Maps API not fully loaded, retrying...')
         setTimeout(loadAutocomplete, 500)
@@ -52,21 +41,6 @@ export default function GetStartedPage() {
 
     loadAutocomplete()
   }, [])
-
-  const updateStreetView = (location: google.maps.LatLng) => {
-    const streetViewService = new window.google.maps.StreetViewService()
-    streetViewService.getPanorama({ location, radius: 50 }, (data: any, status: any) => {
-      if (status === 'OK') {
-        const panorama = new window.google.maps.StreetViewPanorama(mapRef.current, {
-          position: data.location.latLng,
-          pov: { heading: 165, pitch: 0 },
-          zoom: 1,
-        })
-      } else {
-        console.error('Street View data not found for this location.')
-      }
-    })
-  }
 
   const handleSubmit = (e: React.FormEvent) => {
     if (e && e.preventDefault) {
@@ -155,9 +129,6 @@ export default function GetStartedPage() {
         </form>
         <div className="flex justify-center mt-6">
           <Image src="/images/search.png" alt="Search" width={600} height={400} />
-        </div>
-        <div className="flex justify-center mt-6 w-full h-[400px]">
-          <div ref={mapRef} className="w-full h-full rounded-lg"></div>
         </div>
       </main>
       <Footer />

@@ -1,3 +1,6 @@
+//google SSO credentials https://developers.google.com/identity/gsi/web/guides/display-button 
+//facebook SSO credentials https://developers.facebook.com/docs/facebook-login/ 
+
 'use client'
 
 import { useState } from 'react'
