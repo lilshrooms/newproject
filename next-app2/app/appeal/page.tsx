@@ -21,6 +21,7 @@ export default function AppealPage() {
   const [appealText, setAppealText] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState('');
 
   const searchParams = useSearchParams();
 
@@ -49,32 +50,67 @@ export default function AppealPage() {
     event.preventDefault();
     setIsSubmitting(true);
 
-    const { data, error } = await supabase
-      .from('appeals')
-      .insert([{ 
-        name, 
-        email, 
-        appeal: appealText,
-        street,
-        city,
-        state,
-        zipCode
-      }]);
+    try {
+        // First, submit to Supabase
+        const { data, error } = await supabase
+            .from('appeals')
+            .insert([{ 
+                name, 
+                email, 
+                appeal: appealText,
+                street,
+                city,
+                state,
+                zipCode
+            }]);
 
-    if (error) {
-      console.error('Error submitting appeal:', error);
-    } else {
-      setShowConfirmation(true);
-      setName('John Appleseed');
-      setEmail('johna@homebase.com');
-      setStreet('111 Broadway');
-      setCity('New York');
-      setState('NY');
-      setZipCode('10001');
-      setAppealText('');
-      fetchAppeals();
+        if (error) throw error;
+
+        // Then, call the PDF filling API
+        const pdfResponse = await fetch('/api/pdf', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                street,
+                city,
+                state,
+                zipCode,
+                appeal: appealText
+            })
+        });
+
+        const pdfResult = await pdfResponse.json();
+
+        if (!pdfResult.success) {
+            throw new Error(pdfResult.error);
+        }
+
+        // Add download link or success message
+        setShowConfirmation(true);
+        if (pdfResult.success) {
+            setPdfUrl(pdfResult.filePath);
+        }
+        
+        // Reset form
+        setName('John Appleseed');
+        setEmail('johna@homebase.com');
+        setStreet('111 Broadway');
+        setCity('New York');
+        setState('NY');
+        setZipCode('10001');
+        setAppealText('');
+        fetchAppeals();
+
+    } catch (error) {
+        console.error('Error processing appeal:', error);
+        // Handle error (show error message to user)
+    } finally {
+        setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   }
 
   return (
@@ -176,6 +212,18 @@ export default function AppealPage() {
           <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-8 rounded-md" role="alert">
             Your appeal has been submitted successfully!
           </div>
+        )}
+
+        {showConfirmation && pdfUrl && (
+            <div className="mt-4">
+                <a 
+                    href={pdfUrl}
+                    download
+                    className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Download Filled Form
+                </a>
+            </div>
         )}
 
         <div className="appeals-list bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
