@@ -59,6 +59,9 @@ export default function Header() {
             <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:font-bold transition-colors" href="mailto:admin@yourhomebase.co">
               Contact
             </Link>
+            <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:font-bold transition-colors" href="/calculator">
+              Calculator
+            </Link>
             <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:font-bold transition-colors" href="/signup">
               Sign Up
             </Link>
@@ -86,6 +89,9 @@ export default function Header() {
               </Link>
               <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:font-bold transition-colors" href="mailto:admin@yourhomebase.co">
                 Contact
+              </Link>
+              <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:font-bold transition-colors" href="/calculator">
+                Calculator
               </Link>
               <Link className="text-sm font-medium text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:font-bold transition-colors" href="/signup">
                 Sign Up
